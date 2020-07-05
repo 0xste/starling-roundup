@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "55eefc15-0165-4b7f-925a-bd0a235cc5ac",
+		"name": "Starling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Accounts For Customer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{bearer_token_header}}",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "{{current_user}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api-sandbox.starlingbank.com/api/v2/accounts",
+					"protocol": "https",
+					"host": [
+						"api-sandbox",
+						"starlingbank",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account Identifiers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{bearer_token_header}}"
+					},
+					{
+						"key": "User-Agent",
+						"type": "text",
+						"value": "{{current_user}}"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://api-sandbox.starlingbank.com/api/v2/accounts/0f626e6b-d357-4a35-8219-c4e62df5f326/identifiers",
+					"protocol": "https",
+					"host": [
+						"api-sandbox",
+						"starlingbank",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"accounts",
+						"0f626e6b-d357-4a35-8219-c4e62df5f326",
+						"identifiers"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Balance for Account",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{bearer_token_header}}"
+					},
+					{
+						"key": "User-Agent",
+						"type": "text",
+						"value": "{{current_user}}"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://api-sandbox.starlingbank.com/api/v2/accounts/0f626e6b-d357-4a35-8219-c4e62df5f326/balance",
+					"protocol": "https",
+					"host": [
+						"api-sandbox",
+						"starlingbank",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"accounts",
+						"0f626e6b-d357-4a35-8219-c4e62df5f326",
+						"balance"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Feed for Account",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{bearer_token_header}}"
+					},
+					{
+						"key": "User-Agent",
+						"type": "text",
+						"value": "{{current_user}}"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://api-sandbox.starlingbank.com/api/v2/feed/account/0f626e6b-d357-4a35-8219-c4e62df5f326/category/3c2ec967-97b9-43bb-a002-36d616408bea?changesSince=2020-01-01T00:00:00.000Z",
+					"protocol": "https",
+					"host": [
+						"api-sandbox",
+						"starlingbank",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"feed",
+						"account",
+						"0f626e6b-d357-4a35-8219-c4e62df5f326",
+						"category",
+						"3c2ec967-97b9-43bb-a002-36d616408bea"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "changesSince",
+							"value": "2020-01-01T00:00:00.000Z"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
