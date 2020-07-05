@@ -27,6 +27,7 @@ hs_err_pid*
 **/build/
 !src/**/build/
 gradle/wrapper/gradle-wrapper.jar
+.idea
 
 # Ignore Gradle GUI config
 gradle-app.setting
