@@ -4,55 +4,56 @@ plugins {
     id 'java'
     id 'com.github.sherter.google-java-format' version '0.9'
 }
-
+ext {
+    karateVersion = '0.9.5'
+}
 group = 'com.stefanomantini'
 sourceCompatibility = '14'
-
-bootJar {
-    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-    cucumberRuntime {
-        extendsFrom testImplementation
-    }
-}
-
-task cucumber() {
-    dependsOn assemble, compileTestJava
-    doLast {
-        println sourceSets.main.output + sourceSets.test.output
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'hellocucumber', 'src/test/resources/bagbasics/bag.feature']
-        }
-    }
-}
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation 'io.cucumber:cucumber-java:4.7.0'
-    testImplementation 'io.cucumber:cucumber-junit:4.7.0'
-    testImplementation 'io.cucumber:cucumber-spring:4.7.0'
+    testCompile "com.intuit.karate:karate-junit5:${karateVersion}"
+    testCompile "com.intuit.karate:karate-apache:${karateVersion}"
+    testCompile "net.masterthought:cucumber-reporting:3.8.0"
+    testImplementation 'org.springframework.boot:spring-boot-devtools'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }
-
+bootJar {
+    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    test {
+        java {
+            srcDir file('src/test/java')
+        }
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
 test {
     useJUnitPlatform()
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+}
+
+
+task karate() {
+    println 'karate'
 }
