@@ -19,6 +19,8 @@ dependencies {
     testCompile "com.intuit.karate:karate-junit5:${karateVersion}"
     testCompile "com.intuit.karate:karate-apache:${karateVersion}"
     testCompile "net.masterthought:cucumber-reporting:3.8.0"
+    testCompile "org.mockito:mockito-core:2.21.0"
+    testCompile "org.mockito:mockito-junit-jupiter:2.23.0"
     testImplementation 'org.springframework.boot:spring-boot-devtools'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

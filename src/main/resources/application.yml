@@ -5,3 +5,12 @@ management:
   endpoints:
     web:
       base-path: /
+
+
+starling:
+  account:
+    path: api/v2/accounts
+  feed:
+    path: api/v2/feed/account/0f626e6b-d357-4a35-8219-c4e62df5f326/category/3c2ec967-97b9-43bb-a002-36d616408bea?changesSince=2020-01-01T00:00:00.000Z
+  baseUrl: https://api-sandbox.starlingbank.com/
+  bearerToken: ${BEARER_TOKEN}
