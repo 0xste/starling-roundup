@@ -1,9 +1,10 @@
 package com.stefanomantini.starlingroundup.client.dto;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.UUID;
-import lombok.*;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Account {
-  public UUID accountUuid;
+  public UUID accountUid;
   public UUID defaultCategory;
   public Currency currency;
   public LocalDateTime createdAt;
