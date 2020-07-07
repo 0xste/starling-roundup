@@ -1,10 +1,9 @@
 package com.stefanomantini.starlingroundup.client.dto;
 
-import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.UUID;
+import lombok.*;
 
 @Getter
 @Setter

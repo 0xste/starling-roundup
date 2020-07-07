@@ -1,7 +1,12 @@
 package com.stefanomantini.starlingroundup.client.impl;
 
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+
 import com.stefanomantini.starlingroundup.client.contract.StarlingClient;
 import com.stefanomantini.starlingroundup.client.dto.Account;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -11,12 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class StarlingClientImplTest {
