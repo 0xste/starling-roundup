@@ -3,10 +3,9 @@ package com.stefanomantini.starlingroundup.api;
 import com.stefanomantini.starlingroundup.api.contract.RoundupControllerContract;
 import com.stefanomantini.starlingroundup.client.dto.FeedItemWrapper;
 import com.stefanomantini.starlingroundup.service.contract.RoundupService;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/api/v1/")

@@ -11,6 +11,8 @@ customer save for future adventures.
 - Uses googleJavaFormatter plugin (invalid formatting will fail pipeline)
 - Uses Karate for cucumber-ish integration tests in the API tier
 - Uses springfox to autogenerate swagger docs
+- Various configs can be set, refer to src/main/resources/application.yml for detail
+- Basic auth is disabled unless ENABLE_BASIC_AUTH is set
 
 ### Getting started
 
