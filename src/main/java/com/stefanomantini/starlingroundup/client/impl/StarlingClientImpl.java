@@ -2,9 +2,12 @@ package com.stefanomantini.starlingroundup.client.impl;
 
 import com.stefanomantini.starlingroundup.client.contract.StarlingClient;
 import com.stefanomantini.starlingroundup.client.dto.AccountWrapper;
+import com.stefanomantini.starlingroundup.client.dto.Amount;
 import com.stefanomantini.starlingroundup.client.dto.FeedItemWrapper;
+import com.stefanomantini.starlingroundup.client.dto.SavingsGoalRequest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +33,20 @@ public class StarlingClientImpl implements StarlingClient {
   private final String bearerToken;
   private final String accountPath;
   private final String feedPath;
+  private final String savingsGoalPath;
 
   public StarlingClientImpl(
       @Value("${starling.baseUrl}") final String baseUrl,
       @Value("${starling.bearerToken}") final String bearerToken,
       @Value("${starling.account.path}") final String accountPath,
       @Value("${starling.feed.path}") final String feedPath,
+      @Value("${starling.savingsGoal.path}") final String savingsGoalPath,
       final RestTemplate restTemplate) {
     this.baseUrl = baseUrl;
     this.bearerToken = bearerToken;
     this.accountPath = accountPath;
     this.feedPath = feedPath;
+    this.savingsGoalPath = savingsGoalPath;
     this.restTemplate = restTemplate;
   }
 
@@ -64,5 +70,23 @@ public class StarlingClientImpl implements StarlingClient {
     headers.add(authorizationHeader, "Bearer " + bearerToken);
     return restTemplate.exchange(
         feedEndpoint, HttpMethod.GET, new HttpEntity(headers), FeedItemWrapper.class);
+  }
+
+  @Override
+  public ResponseEntity<SavingsGoalRequest> CreateNewSavingsGoal(
+      final UUID accountId, final String name, final Amount target) {
+    final HttpHeaders headers = new HttpHeaders();
+    String feedEndpoint = savingsGoalPath.replace("{accountId}", accountId.toString());
+    feedEndpoint = baseUrl + feedEndpoint;
+    headers.add(authorizationHeader, "Bearer " + bearerToken);
+
+    final SavingsGoalRequest body =
+        SavingsGoalRequest.builder()
+            .currency(Currency.getInstance("GBP"))
+            .name(name)
+            .target(target)
+            .build();
+    return restTemplate.exchange(
+        feedEndpoint, HttpMethod.PUT, new HttpEntity(body, headers), SavingsGoalRequest.class);
   }
 }

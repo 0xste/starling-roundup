@@ -1,7 +1,9 @@
 package com.stefanomantini.starlingroundup.client.contract;
 
 import com.stefanomantini.starlingroundup.client.dto.AccountWrapper;
+import com.stefanomantini.starlingroundup.client.dto.Amount;
 import com.stefanomantini.starlingroundup.client.dto.FeedItemWrapper;
+import com.stefanomantini.starlingroundup.client.dto.SavingsGoalRequest;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +26,15 @@ public interface StarlingClient {
    */
   ResponseEntity<FeedItemWrapper> GetFeedForAccount(
       UUID accountId, UUID categoryId, LocalDateTime changesSince);
+
+  /**
+   * Create New Savings Goal
+   *
+   * @param accountId
+   * @param name
+   * @param target
+   * @return
+   */
+  ResponseEntity<SavingsGoalRequest> CreateNewSavingsGoal(
+      UUID accountId, String name, Amount target);
 }

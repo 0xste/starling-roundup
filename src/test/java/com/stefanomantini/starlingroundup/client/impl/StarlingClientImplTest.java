@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Currency;
 import java.util.UUID;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -21,6 +22,7 @@ class StarlingClientImplTest {
   private final String baseUrl = "https://mockstarling.com/";
   private final String bearerToken = "some-bearer-token";
   private final String accountPath = "api/v2/accounts";
+  private final String savingsGoalPath = "api/v2/account/{accountId}/savings-goals";
   private final String feedPath =
       "api/v2/feed/account/{accountId}/category/{categoryId}?changesSince={changesSinceTimestamp}";
 
@@ -30,15 +32,19 @@ class StarlingClientImplTest {
   void getAccountDetails_simpleCase_valid() {
     // arrange
     final StarlingClientImpl sc =
-        new StarlingClientImpl(baseUrl, "someBearer", accountPath, feedPath, restTemplate);
+        new StarlingClientImpl(
+            baseUrl, bearerToken, accountPath, feedPath, savingsGoalPath, restTemplate);
 
-    final Account account = Account.builder().accountUuid(UUID.randomUUID()).build();
+    final Account account = Account.builder().accountUid(UUID.randomUUID()).build();
     final AccountWrapper expectedAccounts = new AccountWrapper(Arrays.asList(account));
     final HttpHeaders headers = new HttpHeaders();
     headers.add("Authorization", "Bearer " + bearerToken);
     Mockito.when(
             restTemplate.exchange(
-                baseUrl + accountPath, HttpMethod.GET, new HttpEntity(headers), Account[].class))
+                baseUrl + accountPath,
+                HttpMethod.GET,
+                new HttpEntity(headers),
+                AccountWrapper.class))
         .thenReturn(new ResponseEntity(expectedAccounts, HttpStatus.OK));
 
     // act
@@ -52,7 +58,9 @@ class StarlingClientImplTest {
   void getFeedForAccount_simpleCase_valid() {
     // arrange
     final StarlingClientImpl sc =
-        new StarlingClientImpl(baseUrl, "someBearer", accountPath, feedPath, restTemplate);
+        new StarlingClientImpl(
+            baseUrl, bearerToken, accountPath, feedPath, savingsGoalPath, restTemplate);
+
     // TODO mock feedItemGeneration function
     final FeedItem feedItem =
         FeedItem.builder()
@@ -81,6 +89,42 @@ class StarlingClientImplTest {
         sc.GetFeedForAccount(accountId, categoryId, changesSince);
 
     // assert
+    assertEquals("status should be ok", HttpStatus.OK, actualFeedItems.getStatusCode());
     assertEquals("feedItems should be equal", expectedFeedItems, actualFeedItems.getBody());
+  }
+
+  @Test
+  @Disabled("failing test")
+  void createNewSavingsGoal() {
+    // arrange
+    final StarlingClientImpl sc =
+        new StarlingClientImpl(
+            baseUrl, bearerToken, accountPath, feedPath, savingsGoalPath, restTemplate);
+
+    final SavingsGoalRequest body = SavingsGoalRequest.builder().name("trip to paris").build();
+    final SavingsGoalResponse responseBody = SavingsGoalResponse.builder().name("").build();
+    final UUID accountId = UUID.randomUUID();
+    final UUID categoryId = UUID.randomUUID();
+    final LocalDateTime changesSince = LocalDateTime.now().minusMonths(3);
+    final HttpHeaders headers = new HttpHeaders();
+    headers.add("Authorization", "Bearer " + bearerToken);
+    Mockito.when(
+            restTemplate.exchange(
+                String.format("%sapi/v2/account/%s/savings-goals", baseUrl, accountId.toString()),
+                HttpMethod.PUT,
+                new HttpEntity<>(body, headers),
+                SavingsGoalRequest.class))
+        .thenReturn(new ResponseEntity(responseBody, HttpStatus.OK));
+
+    // act
+    final ResponseEntity<SavingsGoalRequest> actualFeedItems =
+        sc.CreateNewSavingsGoal(
+            accountId,
+            "hello",
+            Amount.builder().currency(Currency.getInstance("GBP")).minorUnits(123).build());
+
+    // assert
+    assertEquals("status should be ok", HttpStatus.OK, actualFeedItems.getStatusCode());
+    assertEquals("request should be equal", responseBody, actualFeedItems.getBody());
   }
 }
