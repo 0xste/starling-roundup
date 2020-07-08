@@ -1,8 +1,7 @@
 package com.stefanomantini.starlingroundup.client.dto;
 
-import lombok.Builder;
-
 import java.util.Currency;
+import lombok.Builder;
 
 @Builder
 public class Amount {

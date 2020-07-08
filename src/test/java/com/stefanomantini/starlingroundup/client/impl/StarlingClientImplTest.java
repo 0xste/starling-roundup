@@ -1,6 +1,12 @@
 package com.stefanomantini.starlingroundup.client.impl;
 
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+
 import com.stefanomantini.starlingroundup.client.dto.*;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Currency;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -8,13 +14,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Currency;
-import java.util.UUID;
-
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class StarlingClientImplTest {
@@ -39,7 +38,7 @@ class StarlingClientImplTest {
     headers.add("Authorization", "Bearer " + bearerToken);
     Mockito.when(
             restTemplate.exchange(
-                    baseUrl + accountPath, HttpMethod.GET, new HttpEntity(headers), Account[].class))
+                baseUrl + accountPath, HttpMethod.GET, new HttpEntity(headers), Account[].class))
         .thenReturn(new ResponseEntity(expectedAccounts, HttpStatus.OK));
 
     // act
@@ -71,7 +70,7 @@ class StarlingClientImplTest {
             restTemplate.exchange(
                 String.format(
                     "%sapi/v2/feed/account/%s/category/%s?changesSince=%s",
-                        baseUrl, accountId.toString(), categoryId.toString(), changesSince.toString()),
+                    baseUrl, accountId.toString(), categoryId.toString(), changesSince.toString()),
                 HttpMethod.GET,
                 new HttpEntity(headers),
                 FeedItemWrapper.class))

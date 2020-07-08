@@ -3,6 +3,9 @@ package com.stefanomantini.starlingroundup.client.impl;
 import com.stefanomantini.starlingroundup.client.contract.StarlingClient;
 import com.stefanomantini.starlingroundup.client.dto.AccountWrapper;
 import com.stefanomantini.starlingroundup.client.dto.FeedItemWrapper;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +15,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Slf4j
 @Component
@@ -50,7 +49,7 @@ public class StarlingClientImpl implements StarlingClient {
     final HttpHeaders headers = new HttpHeaders();
     headers.add(authorizationHeader, "Bearer " + bearerToken);
     return restTemplate.exchange(
-            baseUrl + accountPath, HttpMethod.GET, new HttpEntity(headers), AccountWrapper.class);
+        baseUrl + accountPath, HttpMethod.GET, new HttpEntity(headers), AccountWrapper.class);
   }
 
   @Override

@@ -2,10 +2,9 @@ package com.stefanomantini.starlingroundup.client.contract;
 
 import com.stefanomantini.starlingroundup.client.dto.AccountWrapper;
 import com.stefanomantini.starlingroundup.client.dto.FeedItemWrapper;
-import org.springframework.http.ResponseEntity;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.springframework.http.ResponseEntity;
 
 public interface StarlingClient {
   /**

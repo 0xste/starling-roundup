@@ -29,7 +29,7 @@ public class RoundupServiceImpl
 
         // TODO investigate 404 back from this
         final ResponseEntity<FeedItemWrapper> feedItemWrapperResponseEntity =
-                starlingClient.GetFeedForAccount(
+            starlingClient.GetFeedForAccount(
                 account.getAccountUid(), account.getDefaultCategory(), account.getCreatedAt());
 
         if (feedItemWrapperResponseEntity.getStatusCode() == HttpStatus.OK) {
