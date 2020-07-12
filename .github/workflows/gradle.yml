@@ -20,7 +20,7 @@ jobs:
       - name: lint
         run: ./gradlew verifyGoogleJavaFormat
       - name: test
-        run: ./gradlew test --tests com.stefanomantini.starlingroundup
+        run: ./gradlew test --tests com.stefanomantini.starlingroundup.*
       - name: build-jar
         run: ./gradlew build
       - name: Archive production artifacts
