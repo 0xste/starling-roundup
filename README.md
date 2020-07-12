@@ -1,5 +1,7 @@
 # starling-roundup
 
+![Java CI with Gradle](https://github.com/stefanomantini/starling-roundup/workflows/Java%20CI%20with%20Gradle/badge.svg)
+
 ### Specification
 For a customer, take all the transactions in a given week and round them up to the
 nearest pound. For example with spending of £4.35, £5.20 and £0.87, the round-up
