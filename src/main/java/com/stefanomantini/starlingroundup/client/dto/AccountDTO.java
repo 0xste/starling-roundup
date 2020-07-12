@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Account {
+public class AccountDTO {
   public UUID accountUid;
   public UUID defaultCategory;
   public Currency currency;

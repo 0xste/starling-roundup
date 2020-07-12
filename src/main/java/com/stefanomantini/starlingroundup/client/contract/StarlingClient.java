@@ -1,12 +1,11 @@
 package com.stefanomantini.starlingroundup.client.contract;
 
-import com.stefanomantini.starlingroundup.client.dto.AccountWrapper;
-import com.stefanomantini.starlingroundup.client.dto.Amount;
-import com.stefanomantini.starlingroundup.client.dto.FeedItemWrapper;
-import com.stefanomantini.starlingroundup.client.dto.SavingsGoalRequest;
-import java.time.LocalDateTime;
+import com.stefanomantini.starlingroundup.client.dto.*;
+import com.stefanomantini.starlingroundup.client.exception.RemoteGatewayException;
+import com.stefanomantini.starlingroundup.service.exception.BusinessException;
+import com.stefanomantini.starlingroundup.service.exception.TechnicalException;
+import java.time.ZonedDateTime;
 import java.util.UUID;
-import org.springframework.http.ResponseEntity;
 
 public interface StarlingClient {
   /**
@@ -14,7 +13,7 @@ public interface StarlingClient {
    *
    * @return responseEntity of Account[]
    */
-  ResponseEntity<AccountWrapper> GetAccountDetails();
+  AccountWrapperDTO GetAccountDetails() throws RemoteGatewayException;
 
   /**
    * Get feed details using a bearer token
@@ -24,8 +23,8 @@ public interface StarlingClient {
    * @param changesSince the timestamp of when to retrieve from
    * @return responseEntity of FeedItemWrapper
    */
-  ResponseEntity<FeedItemWrapper> GetFeedForAccount(
-      UUID accountId, UUID categoryId, LocalDateTime changesSince);
+  FeedItemWrapperDTO GetFeedForAccount(UUID accountId, UUID categoryId, ZonedDateTime changesSince)
+      throws RemoteGatewayException;
 
   /**
    * Create New Savings Goal
@@ -35,6 +34,18 @@ public interface StarlingClient {
    * @param target
    * @return
    */
-  ResponseEntity<SavingsGoalRequest> CreateNewSavingsGoal(
-      UUID accountId, String name, Amount target);
+  CreateSavingsGoalResponseDTO CreateNewSavingsGoal(UUID accountId, String name, AmountDTO target)
+      throws RemoteGatewayException;
+
+  /**
+   * Add money to Savings Goal
+   *
+   * @param accountId
+   * @param savingsGoalId
+   * @param toAdd
+   * @return
+   */
+  AddMoneyToSavingsGoalResponseDTO AddMoneyToSavingsGoal(
+      UUID accountId, UUID savingsGoalId, AmountDTO toAdd)
+      throws RemoteGatewayException, BusinessException, TechnicalException;
 }

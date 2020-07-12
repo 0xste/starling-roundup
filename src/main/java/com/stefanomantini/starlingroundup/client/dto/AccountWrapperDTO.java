@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountWrapper {
-  List<Account> accounts;
+public class AccountWrapperDTO {
+  List<AccountDTO> accounts;
 }

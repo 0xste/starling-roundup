@@ -14,6 +14,11 @@ customer save for future adventures.
 - Various configs can be set, refer to src/main/resources/application.yml for detail
 - Basic auth is disabled unless ENABLE_BASIC_AUTH is set
 
+##### Roundup Transactions between 'transactionTimes' and add 'amount' to an accounts given savings goal
+```
+curl -X PUT 'http://localhost:8080/api/v1/account/0f626e6b-d357-4a35-8219-c4e62df5f326/round-up/e5ed27ef-6bc5-45fd-adf8-2697c4cad02b?fromDate=2020-07-12T20:17:40.122Z&toDate=2020-07-12T20:19:40.122Z'
+```
+
 ### Getting started
 
 ###### Swagger Docs available at:
@@ -36,8 +41,7 @@ http://localhost:8080/swagger-ui.html
 ./gradlew test --tests com.stefanomantini.starlingroundup
 ```
 
-###### Running integration tests (API) -> some manual tweaks required to make them pass, would need to create 
-transactions as part of the tests to properly test this
+###### Running integration tests (API) -> some manual tweaks required to make them pass, would need to create transactions as part of the tests to properly test this
 ```
 ./gradlew bootRun
 ./gradlew test --tests karate

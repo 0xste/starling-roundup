@@ -1,6 +1,7 @@
 package com.stefanomantini.starlingroundup.client.dto;
 
-import java.time.LocalDateTime;
+import com.stefanomantini.starlingroundup.client.enumeration.Direction;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 import lombok.*;
 
@@ -9,15 +10,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FeedItem {
+@ToString
+public class FeedItemDTO {
   private UUID feedItemUid;
   private UUID categoryUid;
-  private Amount amount;
-  private Amount sourceAmount;
-  private DirectionType direction;
-  private LocalDateTime updatedAt;
-  private LocalDateTime transactionTime;
-  private LocalDateTime settlementTime;
+  private AmountDTO amount;
+  private AmountDTO sourceAmount;
+  private Direction direction;
+  private ZonedDateTime updatedAt;
+  private ZonedDateTime transactionTime;
+  private ZonedDateTime settlementTime;
   private String source;
   private String status;
   private String counterPartyType;

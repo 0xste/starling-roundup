@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedItemWrapper {
-  private List<FeedItem> feedItems;
+public class FeedItemWrapperDTO {
+  private List<FeedItemDTO> feedItems;
 }
